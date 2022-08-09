@@ -143,9 +143,19 @@ let selectEndCell = () => {
   });
 };
 
+let clearAll = () => {
+  clearKnight();
+  Board.resetBoard();
+  getBoardCells().forEach(cell => {
+    cell.classList.contains('white')
+      ? (cell.style.backgroundColor = 'white')
+      : (cell.style.backgroundColor = '#44403c');
+  });
+};
+
 const eventListeners = {
   clearListener() {
-    return clearBtn.addEventListener('click', clearKnight);
+    return clearBtn.addEventListener('click', clearAll);
   },
   placeListener() {
     return placeBtn.addEventListener('click', placeKnight);
