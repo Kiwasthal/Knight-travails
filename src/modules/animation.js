@@ -2,6 +2,7 @@ import Board from './board';
 import { getDataCell, getKnight, appendNewKnight } from './domStuff';
 
 let animatePath = path => {
+  if (Board.endingX === null || Board.startingX === null) return;
   let timecount = 0;
   let totalX = 0;
   let totalY = 0;
@@ -21,7 +22,7 @@ let animatePath = path => {
     }, timecount);
   };
   for (let i = 0; i < path.length - 1; i++) {
-    console.log('path', path[i + 1][0], path[i + 1][1]);
+    console.log('path :', path[i + 1][0], path[i + 1][1]);
     let animY =
       path[i][0] > path[i + 1][0]
         ? (path[i][0] - path[i + 1][0]) * 100

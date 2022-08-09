@@ -23,7 +23,6 @@ const Board = {
   getEndingCoords(cell) {
     this.endingX = parseInt(cell.dataset.x);
     this.endingY = parseInt(cell.dataset.y);
-    console.log(this.endingX, this.endingY);
   },
   checkValidEnd(cell) {
     if (typeof cell.dataset.x === 'undefined') return false;
@@ -40,6 +39,7 @@ const Board = {
     return possibleMoves;
   },
   findPath(queue = this.movesq) {
+    if (this.endingX === null || this.startingX === null) return;
     while (queue.length) {
       const location = queue.shift();
       if (location[0] === this.endingX && location[1] === this.endingY) break;
@@ -82,6 +82,10 @@ const Board = {
   chainReset() {
     this.prev = [...Array(8)].map(() => Array(8).fill(0));
     this.board = {};
+  },
+  resetEnd() {
+    this.endingX = null;
+    this.endingY = null;
   },
 };
 

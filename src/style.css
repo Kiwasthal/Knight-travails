@@ -21,6 +21,7 @@ body {
 .interface {
   display: flex;
   flex-direction: column;
+  gap: 5px;
   justify-content: flex-start;
   font-family: 'Dancing Script';
   align-items: center;
@@ -67,6 +68,22 @@ img {
   transition: all 300ms ease-in;
 }
 
+.mainbtns {
+  margin-top: 20px;
+}
+
 button {
-  width: 100px;
+  width: 250px;
+  background-color: #525252;
+  font-size: 1rem;
+  font-weight: bolder;
+  color: #f3f4f6;
+  padding: 10px;
+  text-transform: uppercase;
+  transition: 400ms ease-in;
+}
+
+button:hover {
+  background-color: #f3f4f6;
+  color: #525252;
 }

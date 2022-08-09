@@ -132,6 +132,12 @@ let startButton = document.querySelector('.start');
 
 let selectEndCell = () => {
   getBoardCells().forEach(cell => {
+    if (cell.style.backgroundColor === 'rgb(239, 68, 68)') {
+      Board.resetEnd();
+      cell.classList.contains('white')
+        ? (cell.style.backgroundColor = 'white')
+        : (cell.style.backgroundColor = '#44403c');
+    }
     cell.addEventListener('click', handleClick);
   });
 };
