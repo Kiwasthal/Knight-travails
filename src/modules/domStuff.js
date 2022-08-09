@@ -55,6 +55,24 @@ export let appendNewKnight = newCell => {
   newCell.appendChild(createKnight());
 };
 
+let manualPlace = e => {
+  clearKnight();
+  let parent = getDataCell(e.target.dataset.x, e.target.dataset.y);
+  parent.appendChild(createKnight());
+  parent.style.backgroundColor = 'grey';
+  Board.getStartingCoords(parent);
+  Board.getPossibleMoves(Board.startingX, Board.staringY);
+  getBoardCells().forEach(cell => {
+    cell.removeEventListener('click', manualPlace);
+  });
+};
+
+let placeKnight = () => {
+  getBoardCells().forEach(cell => {
+    cell.addEventListener('click', manualPlace);
+  });
+};
+
 const clearKnight = () => {
   Board.resetBoard();
   getBoardCells().forEach(cell => {
@@ -106,6 +124,7 @@ let knightTravails = () => {
 
 generateDOMboard();
 
+let placeBtn = document.querySelector('.place');
 let clearBtn = document.querySelector('.clear');
 let randomBtn = document.querySelector('.random');
 let selectEndBtn = document.querySelector('.selectEnd');
@@ -121,6 +140,9 @@ const eventListeners = {
   clearListener() {
     return clearBtn.addEventListener('click', clearKnight);
   },
+  placeListener() {
+    return placeBtn.addEventListener('click', placeKnight);
+  },
   randomListener() {
     return randomBtn.addEventListener('click', handleRandom);
   },
@@ -133,6 +155,7 @@ const eventListeners = {
   applyListeners() {
     this.clearListener();
     this.randomListener();
+    this.placeListener();
     this.endListener();
     this.startListener();
   },
