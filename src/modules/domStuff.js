@@ -9,7 +9,7 @@ let getBoardCells = () => {
 };
 
 export let getKnight = () => {
-  return document.querySelector('img');
+  return document.querySelector('.knight');
 };
 
 export let getDataCell = (x, y) => {
@@ -46,6 +46,7 @@ const generateDOMboard = (board = Board.generate()) => {
 export let createKnight = () => {
   let knight = new Image();
   knight.src = Knight;
+  knight.classList.add('knight');
   return knight;
 };
 
