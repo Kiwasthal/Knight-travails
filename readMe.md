@@ -1,5 +1,7 @@
 # Knight Travails
 
+↠ <a href='https://kiwasthal.github.io/Knight-travails/'>PROJECT DEMO<a/> ↞
+
 <div style='display:flex'>
   <img src='./src/knight.svg' style='height : 150px' >
   <div>
