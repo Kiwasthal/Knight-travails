@@ -19,7 +19,7 @@ export let getDataCell = (x, y) => {
 //--Dom
 
 const generateDOMboard = (board = Board.generate()) => {
-  const boardContainer = document.querySelector('.container');
+  const boardContainer = document.querySelector('.board');
   for (let i = 0; i < board.length; i++) {
     let row = document.createElement('div');
     for (let y = 0; y < board[i].length; y++) {
@@ -43,16 +43,23 @@ const generateDOMboard = (board = Board.generate()) => {
   }
 };
 
-let createKnight = () => {
+export let createKnight = () => {
   let knight = new Image();
   knight.src = Knight;
   return knight;
 };
 
+export let appendNewKnight = newCell => {
+  let oc = getKnight().parentNode;
+  oc.removeChild(getKnight());
+  newCell.appendChild(createKnight());
+};
+
 const clearKnight = () => {
-  let cells = document.querySelectorAll('.cell');
-  cells.forEach(cell => {
+  Board.resetBoard();
+  getBoardCells().forEach(cell => {
     if (cell.style.backgroundColor === 'grey') {
+      cell.textContent = '';
       cell.dataset.originalColor === 'white'
         ? (cell.style.backgroundColor = cell.dataset.originalColor)
         : (cell.style.backgroundColor = '#44403c');
@@ -60,7 +67,6 @@ const clearKnight = () => {
     if (cell.hasChildNodes()) cell.removeChild(getKnight());
   });
   if (getKnight()) {
-    getKnight().classList.remove('move');
     getKnight().style.transform = '';
   }
 };
@@ -69,6 +75,7 @@ const createRandomKnight = (
   x = Math.floor(Math.random() * 8),
   y = Math.floor(Math.random() * 8)
 ) => {
+  clearKnight();
   let randomCell = getDataCell(x, y);
   randomCell.appendChild(createKnight());
   randomCell.style.backgroundColor = 'grey';
@@ -94,6 +101,7 @@ let handleRandom = () => {
 
 let knightTravails = () => {
   animatePath(Board.findPath());
+  Board.chainReset();
 };
 
 generateDOMboard();

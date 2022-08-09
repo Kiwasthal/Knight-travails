@@ -1,3 +1,5 @@
+import { getDataCell } from './domStuff';
+
 const Board = {
   startingX: null,
   staringY: null,
@@ -14,6 +16,7 @@ const Board = {
   getStartingCoords(cell) {
     this.startingX = parseInt(cell.dataset.x);
     this.staringY = parseInt(cell.dataset.y);
+    this.movesq = [];
     this.movesq.push([this.startingX, this.staringY]);
     this.board[JSON.stringify([this.startingX, this.staringY])] = 1;
   },
@@ -58,7 +61,27 @@ const Board = {
       curLocation = this.prev[curLocation[0]][curLocation[1]];
     }
     path.unshift([this.startingX, this.staringY]);
+
+    //Setting new starting pos
+    this.getStartingCoords(
+      getDataCell(path[path.length - 1][0], path[path.length - 1][1])
+    );
     return path;
+  },
+
+  //-- Helpers
+  resetBoard() {
+    this.startingX = null;
+    this.staringY = null;
+    this.endingX = null;
+    this.endingY = null;
+    this.board = {};
+    this.movesq = [];
+    this.prev = [...Array(8)].map(() => Array(8).fill(0));
+  },
+  chainReset() {
+    this.prev = [...Array(8)].map(() => Array(8).fill(0));
+    this.board = {};
   },
 };
 

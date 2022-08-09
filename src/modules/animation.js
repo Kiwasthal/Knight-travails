@@ -1,17 +1,26 @@
-import { getDataCell, getKnight } from './domStuff';
+import Board from './board';
+import { getDataCell, getKnight, appendNewKnight } from './domStuff';
 
 let animatePath = path => {
   let timecount = 0;
   let totalX = 0;
   let totalY = 0;
   let newCell;
-  let animate = (timecount, totalX, totalY, cell) => {
+  let appendKnight = (cell, timecount) => {
     setTimeout(() => {
-      getKnight().style.transform = `translateY(${totalX}px) translateX(${totalY}px)`;
-      if (cell) cell.style.backgroundColor = 'grey';
+      appendNewKnight(cell);
     }, timecount);
   };
-  for (let i = 0; i < path.length; i++) {
+  let animate = (timecount, totalX, totalY, cell, i) => {
+    setTimeout(() => {
+      getKnight().style.transform = `translateY(${totalX}px) translateX(${totalY}px)`;
+      if (cell) {
+        cell.style.backgroundColor = 'grey';
+        cell.textContent = i + 1;
+      }
+    }, timecount);
+  };
+  for (let i = 0; i < path.length - 1; i++) {
     console.log('path', path[i + 1][0], path[i + 1][1]);
     let animY =
       path[i][0] > path[i + 1][0]
@@ -27,9 +36,12 @@ let animatePath = path => {
         : (path[i + 1][1] - path[i][1]) * 100;
     totalY += animX;
     newCell = getDataCell(path[i + 1][0], path[i + 1][1]);
-    animate(timecount, totalX, totalY, newCell);
+    animate(timecount, totalX, totalY, newCell, i);
     timecount += 301;
   }
+  // appendNewKnight(getDataCell(Board.startingX, Board.staringY), timecount);
+  let newStarting = getDataCell(Board.startingX, Board.staringY);
+  appendKnight(newStarting, timecount);
 };
 
 export default animatePath;
