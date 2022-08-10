@@ -1,4 +1,5 @@
 import Knight from '../knight.svg';
+import GHmark from '../GitHub-Mark-32px.png';
 import Board from './board';
 import animatePath from './animation';
 
@@ -41,6 +42,14 @@ const generateDOMboard = (board = Board.generate()) => {
     row.classList.add('row');
     boardContainer.appendChild(row);
   }
+};
+
+let generateGHmark = () => {
+  let footer = document.querySelector('footer');
+  let ghMark = new Image();
+  ghMark.src = GHmark;
+  ghMark.classList.add('ghmark');
+  footer.appendChild(ghMark);
 };
 
 export let createKnight = () => {
@@ -124,6 +133,7 @@ let knightTravails = () => {
 };
 
 generateDOMboard();
+generateGHmark();
 
 let placeBtn = document.querySelector('.place');
 let clearBtn = document.querySelector('.clear');
